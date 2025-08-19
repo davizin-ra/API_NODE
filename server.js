@@ -16,7 +16,7 @@ const usuarios = []
 app.post('/cadastro', async (req, res) => {
 
     await prisma.usuario.create({
-        data:{
+        data: {
             email: req.body.email,
             nome: req.body.nome,
             idade: req.body.idade,
@@ -27,10 +27,14 @@ app.post('/cadastro', async (req, res) => {
 })
 
 
-app.get('/cadastro', (req, res) => {
-    // res.send('GET certin')
-    res.status(200).json(usuarios)
+app.get('/cadastro', async (req, res) => {
+
+    const lista_usuarios = await prisma.usuario.findMany();
+
+    res.status(200).json(lista_usuarios)
+
 })
+
 
 //Porta
 
