@@ -2,6 +2,10 @@
 
 import express from 'express'
 
+import pkg from "@prisma/client"
+const { PrismaClient } = pkg;
+const prisma = new PrismaClient()
+
 const app = express()
 app.use(express.json())
 
@@ -9,10 +13,16 @@ const usuarios = []
 
 //Rota
 
-app.post('/cadastro', (req, res) => {
-    // console.log(req.body)
-    usuarios.push(req.body)
-    // res.send('POST certin')
+app.post('/cadastro', async (req, res) => {
+
+    await prisma.usuario.create({
+        data:{
+            email: req.body.email,
+            nome: req.body.nome,
+            idade: req.body.idade,
+        }
+    })
+
     res.status(201).json(req.body)
 })
 
