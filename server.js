@@ -35,6 +35,37 @@ app.get('/cadastro', async (req, res) => {
 
 })
 
+app.put('/cadastro/:id', async (req, res) => {
+
+    await prisma.usuario.update({
+        where: {
+            id: req.params.id
+        },
+        data: {
+            email: req.body.email,
+            nome: req.body.nome,
+            idade: req.body.idade,
+        }
+    })
+
+
+    res.status(201).json({ "message": "Usuário atualizado" })
+
+})
+
+app.delete('/cadastro/:id', async (req, res) => {
+
+    await prisma.usuario.delete({
+        where: {
+            id: req.params.id
+        }
+    })
+
+
+    res.status(201).json({ "message": "Usuário deletado" })
+
+})
+
 
 //Porta
 
