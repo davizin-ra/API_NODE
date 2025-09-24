@@ -1,12 +1,14 @@
 //OBJ
 
 import express from 'express'
-
 import pkg from "@prisma/client"
-const { PrismaClient } = pkg;
+import cors from 'cors'
+
+const { PrismaClient } = pkg
 const prisma = new PrismaClient()
 
 const app = express()
+app.use(cors())
 app.use(express.json())
 
 const usuarios = []
